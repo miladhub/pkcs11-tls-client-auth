@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_12_0.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+    <Call name="addConnector">
+        <Arg>
+            <New class="org.eclipse.jetty.server.ServerConnector">
+                <Arg name="server">
+                    <Ref refid="Server"/>
+                </Arg>
+                <Arg name="factories">
+                    <Array type="org.eclipse.jetty.server.ConnectionFactory">
+                        <Item>
+                            <New class="org.eclipse.jetty.server.SslConnectionFactory">
+                                <Arg name="next">http/1.1</Arg>
+                                <Arg>
+                                    <New class="org.eclipse.jetty.util.ssl.SslContextFactory$Server">
+                                        <Set name="KeyStorePath">server-keystore.p12</Set>
+                                        <Set name="KeyStorePassword">changeit</Set>
+                                        <Set name="KeyManagerPassword">changeit</Set>
+                                        <Set name="KeyStoreType">PKCS12</Set>
+                                        <Set name="TrustStorePath">server-truststore.p12</Set>
+                                        <Set name="TrustStorePassword">changeit</Set>
+                                        <Set name="TrustStoreType">PKCS12</Set>
+                                        <Set name="NeedClientAuth">true</Set>
+                                    </New>
+                                </Arg>
+                            </New>
+                        </Item>
+                        <Item>
+                            <New class="org.eclipse.jetty.server.HttpConnectionFactory"/>
+                        </Item>
+                    </Array>
+                </Arg>
+                <Set name="port">8443</Set>
+            </New>
+        </Arg>
+    </Call>
+</Configure>
