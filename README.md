@@ -30,8 +30,6 @@ softhsm2-util --delete-token --token myToken ; \
 
 # Set up the PKCS#11 keystore
 
-Initialize the token:
-
 ```bash
 softhsm2-util --init-token --slot 0 --label "myToken" --pin 1234 --so-pin 5678
 ```
