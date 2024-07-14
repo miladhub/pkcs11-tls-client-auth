@@ -3,6 +3,10 @@
 This project is an example of using PKCS#11 for TLS client authentication,
 without using a real smart card.
 
+This project uses [SoftHSM v2](https://github.com/opendnssec/SoftHSMv2) to
+create a virtual PKCS#11-enabled smart card, and `keytool` to interact with it
+- i.e., to import private keys and certificates into it.
+
 # Prerequisites
 
 * Java 17+
@@ -11,10 +15,6 @@ without using a real smart card.
 These instructions have been tested on MacOS using an M1 Mac Air.
 
 # Install SoftHSM
-
-Install [SoftHSM v2](https://github.com/opendnssec/SoftHSMv2) to create a
-virtual PKCS#11-enabled smart card, and `keytool` to interact with it (i.e.,
-to import private keys and certificates into it).
 
 ```bash
 $ brew install softhsm
