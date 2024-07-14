@@ -17,7 +17,7 @@ These instructions have been tested on MacOS using an M1 Mac Air.
 # Install SoftHSM
 
 ```bash
-$ brew install softhsm
+brew install softhsm
 ```
 
 # Build
