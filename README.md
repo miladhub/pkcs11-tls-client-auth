@@ -100,7 +100,7 @@ keytool -importcert -file server-cert.cer \
 
 # Listing the contents of the keystores and trust stores
 
-The client PCS#11-based keystore must contain both a private key and a
+The PCS#11-based client keystore must contain both a private key and a
 certificate, because it's used to perform TLS authentication:
 
 ```bash
@@ -115,7 +115,7 @@ client, PrivateKeyEntry,
 Certificate fingerprint (SHA-256): ...
 ```
 
-The client trust store must contain only a certificate (the server's),
+The PKCS#12 client trust store must contain only a certificate (the server's),
 without a private key:
 
 ```bash
@@ -129,7 +129,7 @@ server, 14 Jul 2024, trustedCertEntry,
 Certificate fingerprint (SHA-256): ...
 ```
 
-The server keystore must contain both a private key and a certificate,
+The PKCS#12 server keystore must contain both a private key and a certificate,
 because it's used to perform the TLS handshake:
 
 ```bash
@@ -143,7 +143,7 @@ server, 14 Jul 2024, PrivateKeyEntry,
 Certificate fingerprint (SHA-256): ...
 ```
 
-The server truststore must only contain a certificate, without a private key,
+The PKCS#12 server truststore must only contain a certificate, without a private key,
 because it's used to verify the identity of the client with TLS authentication:
 
 ```bash
