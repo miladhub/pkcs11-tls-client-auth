@@ -1,6 +1,7 @@
 # PKCS#11 for TLS client authentication example
 
-This project is an example of using PKCS#11 for TLS client authentication.
+This project is an example of using PKCS#11 for TLS client authentication,
+without using a real smart card.
 
 # Prerequisites
 
