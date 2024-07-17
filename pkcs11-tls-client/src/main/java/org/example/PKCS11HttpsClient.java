@@ -38,8 +38,7 @@ public class PKCS11HttpsClient
     public static void main(String[] args)
     throws Exception {
         if (args.length < 2) {
-            System.err.println(
-                    "Must provide PKCS#11 conf and server URL");
+            System.err.println("Must provide PKCS#11 conf and server URL");
             System.exit(1);
         }
 
