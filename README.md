@@ -163,9 +163,14 @@ Certificate fingerprint (SHA-256): ...
 mvn jetty:run -f jetty-tls-server
 ```
 
-# Running the client
+# Running the client with system properties
 
-Issue this command in another tab:
+The simplest approach is to pass the security information via system properties,
+because it requires less code and it's easier to configure the client without
+touching the code. However, all TLS clients within the JVM will use these
+properties.
+
+To run the client, issue this command in another tab:
 
 ```bash
 java -cp pkcs11-tls-client/target/pkcs11-tls-client-1.0-SNAPSHOT.jar \
@@ -175,7 +180,7 @@ java -cp pkcs11-tls-client/target/pkcs11-tls-client-1.0-SNAPSHOT.jar \
   -Djavax.net.ssl.trustStoreType=PKCS12 \
   -Djavax.net.ssl.trustStore=client-truststore.p12 \
   -Djavax.net.ssl.trustStorePassword=changeit \
-  org.example.PKCS11HttpsClient \
+  org.example.SysPropsPKCS11HttpsClient \
   pkcs11.cfg https://localhost:8443/hello 
 
 Response Code: 200
@@ -193,7 +198,7 @@ java -cp pkcs11-tls-client/target/pkcs11-tls-client-1.0-SNAPSHOT.jar \
   -Djavax.net.ssl.trustStoreType=PKCS12 \
   -Djavax.net.ssl.trustStore=client-keystore.p12 \
   -Djavax.net.ssl.trustStorePassword=changeit \
-  org.example.PKCS11HttpsClient \
+  org.example.SysPropsPKCS11HttpsClient \
   pkcs11.cfg https://localhost:8443/hello 
 
 Caused by: sun.security.validator.ValidatorException: PKIX path building failed:
@@ -217,7 +222,7 @@ java -cp pkcs11-tls-client/target/pkcs11-tls-client-1.0-SNAPSHOT.jar \
   -Djavax.net.ssl.trustStoreType=PKCS12 \
   -Djavax.net.ssl.trustStore=client-truststore.p12 \
   -Djavax.net.ssl.trustStorePassword=changeit \
-  org.example.PKCS11HttpsClient \
+  org.example.SysPropsPKCS11HttpsClient \
   pkcs11.cfg https://localhost:8443/hello 
 
 Exception in thread "main" java.io.IOException: Error writing to server
@@ -235,7 +240,7 @@ java -Djavax.net.debug=ssl:handshake \
   -Djavax.net.ssl.trustStoreType=PKCS12 \
   -Djavax.net.ssl.trustStore=client-truststore.p12 \
   -Djavax.net.ssl.trustStorePassword=changeit \
-  org.example.PKCS11HttpsClient \
+  org.example.SysPropsPKCS11HttpsClient \
   pkcs11.cfg https://localhost:8443/hello 
 ```
 
@@ -291,4 +296,21 @@ curl -v https://localhost:8443/hello \
 <h1>Hello Servlet</h1>
 session=node01dbm04p04x3r0xjohs07k1d6610
 * Connection #0 to host localhost left intact
+```
+
+# Running the programmatic client
+
+This client is useful in scenarios where you can't set the system properties
+because, for example, they would affect multiple clients running within the JVM.
+
+To run this client, issue this command in another tab:
+
+```bash
+java -cp pkcs11-tls-client/target/pkcs11-tls-client-1.0-SNAPSHOT.jar \
+  org.example.ProgrammaticPKCS11HttpsClient pkcs11.cfg 1234 \
+  client-truststore.p12 changeit \
+  https://localhost:8443/hello
+
+Response Code: 200
+Response Content: <h1>Hello Servlet</h1>session=node0ipz28v1879pv1gd3qm21mxowy4
 ```
